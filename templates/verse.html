@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veristasia - Verse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('nest') }}">Veristasia</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('nest') }}">Haven</a></li>
+                <li><a href="{{ url_for('stream') }}">Stream</a></li>
+                <li><a href="{{ url_for('verse') }}">Verse</a></li>
+                <li><a href="{{ url_for('origin') }}">Origin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="post-list">
+            <h1>Verse: Poetry</h1>
+            {% for post in verse_posts %}
+            <div class="post-card">
+                <h2>{{ post['title'] }}</h2>
+                <p class="post-content" data-content="{{ post['content'] }}">
+                    {{ post['content'][:200] }}...
+                </p>
+                <button class="btn read-more">Read more</button>
+            </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Veristasia | Crafted by Parshvi Jain</p>
+    </footer>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".read-more").forEach(button => {
+            button.addEventListener("click", function() {
+                let postCard = this.closest(".post-card");
+                let contentElement = postCard.querySelector(".post-content");
+                let fullContent = contentElement.getAttribute("data-content");
+
+                if (this.textContent === "Read more") {
+                    contentElement.textContent = fullContent; 
+                    this.textContent = "Show less";
+                } else {
+                    contentElement.textContent = fullContent.slice(0, 200) + "...";
+                    this.textContent = "Read more";
+                }
+            });
+        });
+    });
+</script>
+</html>

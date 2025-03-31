@@ -362,6 +362,40 @@
                 opacity: 0.5;
             }
         }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        nav .logo a {
+            font-size: 24px;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        
+        nav .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        
+        nav .nav-links li {
+            margin: 0 15px;
+        }
+        
+        nav .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        nav .nav-links a:hover {
+            color: #7C6A92;
+        }
+        
     </style>
 </head>
 <body>
@@ -373,6 +407,17 @@
         <header>
             <h1 class="logo shimmer-effect">Veristasia</h1>
             <p class="tagline typewriter">Welcome to Veristasia, where order meets chaos, and creativity knows no bounds.</p>
+            <nav>
+                <div class="logo">
+                    <a href="{{ url_for('nest') }}">Veristasia</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('nest') }}">Haven</a></li>
+                    <li><a href="{{ url_for('stream') }}">Stream</a></li>
+                    <li><a href="{{ url_for('verse') }}">Verse</a></li>
+                    <li><a href="{{ url_for('origin') }}">Origin</a></li>
+                </ul>
+            </nav>
         </header>
 
         <main>
