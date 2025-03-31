@@ -50,11 +50,7 @@ Veristasia is a vibrant, personalized creative space designed to be more than ju
 - **Home** → Haven
 - **Blog** → Stream
 - **Poetry & Writing** → Verse
-- **Resources** → Stash
-- **Tracker** → Pulse
-- **Chatbot** → Muse
 - **About** → Origin
-- **Search & Filters** → Scout
 
 ## Future Development
 
