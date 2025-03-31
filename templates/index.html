@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veristasia - Haven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('nest') }}">Veristasia</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('nest') }}">Haven</a></li>
+                <li><a href="{{ url_for('stream') }}">Stream</a></li>
+                <li><a href="{{ url_for('verse') }}">Verse</a></li>
+                <li><a href="{{ url_for('origin') }}">Origin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>{{ veristasia_intro }}</h1>
+                <p class="intro-text">A space where ideas, words, and chaos collide.</p>
+            </div>
+        </section>
+
+        <section class="latest-posts">
+            <div class="post">
+                <h2>Latest Stream Post</h2>
+                {% if stream_post %}
+                    <div class="post-card">
+                        <h3>{{ stream_post['title'] }}</h3>
+                        <p>{{ stream_post['content'][:200] }}...</p>
+                        <a href="{{ url_for('stream') }}" class="btn">Read more</a>
+                    </div>
+                {% else %}
+                    <p>No posts available yet.</p>
+                {% endif %}
+            </div>
+
+            <div class="post">
+                <h2>Latest Verse Post</h2>
+                {% if verse_post %}
+                    <div class="post-card">
+                        <h3>{{ verse_post['title'] }}</h3>
+                        <p>{{ verse_post['content'][:200] }}...</p>
+                        <a href="{{ url_for('verse') }}" class="btn">Read more</a>
+                    </div>
+                {% else %}
+                    <p>No poems available yet.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Veristasia | Crafted by Parshvi Jain</p>
+    </footer>
+
+</body>
+</html>
