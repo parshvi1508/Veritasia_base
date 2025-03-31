@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veristasia - A Riot of Chaos</title>
+    <style>
+        /* Base styles and variables */
+        :root {
+            --baby-pink: #FFD1DC;
+            --light-blue: #BBDEFB;
+            --pastel-purple: #D8BFD8;
+            --soft-mint: #C8E6C9;
+            --cream: #FFF9E6;
+            --accent-color: #9C89B8;
+            --text-color: #5D4E6D;
+            --dark-accent: #7C6A92;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--baby-pink) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background effects */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.5;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(187, 222, 251, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255, 209, 220, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(216, 191, 216, 0.6) 0%, transparent 30%);
+        }
+
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: float 30s infinite ease-in-out;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(2px);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-50px) translateX(20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(-20px) translateX(-20px) rotate(240deg);
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(157, 138, 184, 0.2);
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--dark-accent);
+        }
+
+        /* Main content */
+        .content-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(157, 138, 184, 0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border-top: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--baby-pink), var(--light-blue));
+            border-image-slice: 1;
+        }
+
+        .content-section:nth-child(odd) {
+            border-image: linear-gradient(90deg, var(--light-blue), var(--pastel-purple));
+            border-image-slice: 1;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(157, 138, 184, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--accent-color);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--baby-pink), var(--light-blue));
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, rgba(255, 209, 220, 0.3), rgba(187, 222, 251, 0.3));
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            position: relative;
+            color: var(--dark-accent);
+        }
+
+        .quote-box::before {
+            content: """;
+            font-size: 5rem;
+            color: rgba(157, 138, 184, 0.2);
+            position: absolute;
+            top: -20px;
+            left: 10px;
+        }
+
+        /* Interactive elements */
+        .interactive-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(90deg, var(--baby-pink), var(--pastel-purple));
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(157, 138, 184, 0.2);
+        }
+
+        .interactive-button:hover {
+            background: linear-gradient(90deg, var(--pastel-purple), var(--light-blue));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(157, 138, 184, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            position: relative;
+            color: var(--dark-accent);
+        }
+
+        .social-icons {
+            margin: 1rem 0;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin: 0 10px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(157, 138, 184, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+            background: white;
+            color: var(--dark-accent);
+            box-shadow: 0 8px 15px rgba(157, 138, 184, 0.3);
+        }
+
+        /* Animation classes */
+        @keyframes shimmer {
+            0% {
+                background-position: -100% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .shimmer-effect:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes gentle-float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .gentle-float {
+            animation: gentle-float 4s ease-in-out infinite;
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--accent-color);
+            animation: 
+                typewriter 4s steps(40) 1s forwards,
+                blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color) }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .content-section {
+                padding: 1.2rem;
+            }
+            
+            .bubble {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="bg-decoration"></div>
+    <div class="bubbles" id="bubbles"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo shimmer-effect">Veristasia</h1>
+            <p class="tagline typewriter">Welcome to Veristasia, where order meets chaos, and creativity knows no bounds.</p>
+        </header>
+
+        <main>
+            <section class="content-section gentle-float">
+                <h2 class="section-title shimmer-effect">A Riot of Chaos</h2>
+                <p>Veristasia is more than just a blog; it's a riot of colors, words, and wild ideas. It's where chaos becomes art, and every post is a stroke of creativity in the vast canvas of the universe. Here, nothing is perfect—because perfection is overrated.</p>
+                
+                <div class="quote-box">
+                    <p>"Let the words spill, like ink into chaos."</p>
+                </div>
+                
+                <p>This digital playground is built on the foundation of authentic expression. Every corner of this space is intentionally imperfect, embracing the beauty in disarray and finding meaning in the madness.</p>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title shimmer-effect">About Me</h2>
+                <p>I'm the creator of this colorful mess. A dreamer, writer, poet, and chaos enthusiast, I built Veristasia to give voice to my unfiltered thoughts. Here, I publish the stories that shape my world: blogs on life, musings in verse, and everything in between.</p>
+                
+                <p>My journey began with scribbled notes and messy journals, evolving into this digital space where creativity runs wild. I believe in the power of raw expression—the kind that comes from somewhere deep and untamed.</p>
+                
+                <a href="https://parshvijain.vercel.app/" class="interactive-button">Read My Story</a>
+            </section>
+
+            <section class="content-section gentle-float">
+                <h2 class="section-title shimmer-effect">How I Publish</h2>
+                <p>How do I publish? It's simple: I write what feels true, what feels real. Whether it's a blog post that starts with a single idea or a poem that bursts out of nowhere, I channel my inner chaos, throw it onto the page, and let it speak for itself.</p>
+                
+                <p>There's no formula, no pattern—just pure, unfiltered creative energy. Some days it's structured prose, other days it's fragmented thoughts. All of it is authentic, all of it is me.</p>
+                
+                <div class="quote-box">
+                    <p>"Think of it like an explosion—beautiful, imperfect, and unapologetic.</p>
+                </div>
+                
+                <a href="https://parshvijain.vercel.app/" class="interactive-button">Explore My Works</a>
+
+                <p>I don’t follow a recipe—I just throw in a handful of thoughts, a pinch of mess, and let the chaos take the wheel. Whether it starts with a random spark of inspiration or an avalanche of ideas, I let the words tumble out like a wild storm of unfiltered thoughts.
+
+                </p><p>   No rules, no plan—just pure, untamed energy. Some days, my thoughts come out like neatly stacked bricks, and other days, it's like a scribbled-up napkin from a wild dream. But guess what? It’s always real.</p>   
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 Veristasia | All Rights Reserved</p>
+            <div class="social-icons">
+                <a href="https://parshvijain.vercel.app/" class="social-icon">♡</a>
+                <a href="https://www.linkedin.com/in/parshvi-jain-0a51a7299/" class="social-icon">✿</a>
+                <a href="https://github.com/parshvi1508" class="social-icon">☾</a>
+                <a href="https://discord.com/channels/@me" class="social-icon">✧</a>
+            </div>
+            <p>Let the chaos unfold...</p>
+        </footer>
+    </div>
+
+    <script>
+        //  floating bubbles
+        document.addEventListener('DOMContentLoaded', function() {
+            const bubblesContainer = document.getElementById('bubbles');
+            const bubbleCount = window.innerWidth < 768 ? 15 : 30;
+            
+            // bubbles
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                //size
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // position
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.top = `${Math.random() * 100}vh`;
+                
+                //animation delay and duration
+                bubble.style.animationDelay = `${Math.random() * 30}s`;
+                bubble.style.animationDuration = `${Math.random() * 20 + 20}s`;
+                
+                //opacity
+                bubble.style.opacity = (Math.random() * 0.5 + 0.1).toString();
+                
+                bubblesContainer.appendChild(bubble);
+            }
+
+            // Animate sections on scroll
+            const sections = document.querySelectorAll('.content-section');
+            
+            function checkVisibility() {
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight - 100) {
+                        section.style.opacity = '1';
+                        section.style.transform = section.classList.contains('gentle-float') ? 
+                            'translateY(0)' : 'translateY(0)';
+                    } else {
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(50px)';
+                    }
+                });
+            }
+
+            // Initial setup
+            sections.forEach((section) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            });
+
+            // Check visibility on load and scroll
+            checkVisibility();
+            window.addEventListener('scroll', checkVisibility);
+            
+            // Title shimmer effect
+            const titles = document.querySelectorAll('.section-title');
+            titles.forEach(title => {
+                title.addEventListener('mouseenter', function() {
+                    this.classList.add('active-shimmer');
+                    setTimeout(() => {
+                        this.classList.remove('active-shimmer');
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
