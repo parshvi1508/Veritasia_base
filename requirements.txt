@@ -1,0 +1,11 @@
+flask
+flask-socketio
+flask-wtf
+python-dotenv
+supabase
+groq
+gunicorn
+eventlet  
+
+flask-socketio
+
